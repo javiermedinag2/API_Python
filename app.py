@@ -46,17 +46,16 @@ def obtener_libro():
         nombre = request.form["nombre"]
     else:
         return "No se ha proporcionado nombre del libro"
-    #ISBN= request.form["ISBN"]
-    #genero= request.args["genero"]
-    #descripcion=request.form["descripcion"]
-    libro = {"id":id ,"author": nombre } # Crea un diccionario con los datos del libro
+    ISBN= request.form["ISBN"]
+    genero= request.form["genero"]
+    descripcion=request.form["descripcion"]
+    publicacion=request.form["publicacion"]
+    libro = {"id":int(id) ,"author": nombre, "isbn":ISBN, "genre":genero, "description":descripcion, "publishedYear":publicacion} # Crea un diccionario con los datos del libro
     print(libro)
     print("Libro recibido:", libro) # Imprime el libro recibido en la consola
     Libros.insert_one(libro)
     return f"Libro con id {id} y nombre {nombre} ingresado correctamente"
 if __name__ == '__main__': # Si el script se ejecuta directamente, inicia el servidor de desarrollo
- 
-
     import os # Importa el módulo os para acceder a variables de entorno
     HOST = os.environ.get('SERVER_HOST', 'localhost') # Obtiene el host del entorno o usa 'localhost' por defecto
     try:
