@@ -34,14 +34,33 @@ def api_libro():
             salida += "".join(f"<li>{libro['id']} - {libro['isbn']} - {libro['title']} - {libro['author']}</li>")
             continue   
     return salida #falta validar si no encuentra el libro
-
+####------------------------------------
+@app.route('/libro/ingresa',methods=["POST"]) 
+def obtener_libro():
+    salida=""
+    if "id" in request.form:    
+        id = request.form["id"]
+    else:
+        return "No se ha proporcionado un identificador de libro"
+    if "nombre" in request.form:
+        nombre = request.form["nombre"]
+    else:
+        return "No se ha proporcionado nombre del libro"
+    #ISBN= request.form["ISBN"]
+    #genero= request.args["genero"]
+    #descripcion=request.form["descripcion"]
+    libro = {"id":id ,"author": nombre } # Crea un diccionario con los datos del libro
+    print(libro)
+    print("Libro recibido:", libro) # Imprime el libro recibido en la consola
+    Libros.insert_one(libro)
+    return f"Libro con id {id} y nombre {nombre} ingresado correctamente"
 if __name__ == '__main__': # Si el script se ejecuta directamente, inicia el servidor de desarrollo
  
 
     import os # Importa el módulo os para acceder a variables de entorno
     HOST = os.environ.get('SERVER_HOST', 'localhost') # Obtiene el host del entorno o usa 'localhost' por defecto
     try:
-        PORT = int(os.environ.get('SERVER_PORT', '4000')) # Obtiene el puerto del entorno o usa 5000 por defecto
+        PORT = int(os.environ.get('SERVER_PORT', '1300')) # Obtiene el puerto del entorno o usa 5000 por defecto
     except ValueError:
-        PORT = 4000 # Si la conversión falla, usa 5000 por defecto
+        PORT = 1300 # Si la conversión falla, usa 5000 por defecto
     app.run(HOST, PORT) # Inicia el servidor de desarrollo en el host y puerto especificados
