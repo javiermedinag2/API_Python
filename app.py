@@ -12,7 +12,7 @@ Libros = db.Libros # Selecciona la colección 'Libros'
 @app.route('/') # Define la ruta para la URL raíz
 def hello(): # Define la función que se ejecuta cuando se accede a la ruta
 
-    salida = "<h1>Libros de Python 5P</h1>"
+    salida = "<h1>Libros de Python</h 1>"
     salida += "<ul>"
     
     items=list(Libros.find())
@@ -37,7 +37,10 @@ def api_libro():
 ####------------------------------------
 @app.route('/libro/ingresa',methods=["POST"]) 
 def obtener_libro():
-    salida=""
+    #A diferencia de GET, los datos enviados por POST no son visibles en la URL, ademas no tienen limitacion de tamaño y son mas seguros para enviar informacion sensible
+    #En el caso de POST, los datos se envian en el cuerpo de la solicitud HTTP y se acceden a traves de request.form
+    #print(request.form) # Imprime los datos del formulario en la consola
+    # Validar que se hayan proporcionado los campos mas importantes
     if "id" in request.form:    
         id = request.form["id"]
     else:
@@ -46,11 +49,16 @@ def obtener_libro():
         nombre = request.form["nombre"]
     else:
         return "No se ha proporcionado nombre del libro"
+    if "titulo" in request.form:
+        titulo = request.form["titulo"]
+    else:
+        return "No se ha proporcionado título del libro"
+    
     ISBN= request.form["ISBN"]
     genero= request.form["genero"]
     descripcion=request.form["descripcion"]
     publicacion=request.form["publicacion"]
-    libro = {"id":int(id) ,"author": nombre, "isbn":ISBN, "genre":genero, "description":descripcion, "publishedYear":publicacion} # Crea un diccionario con los datos del libro
+    libro = {"id":int(id) ,"author": nombre, "isbn":ISBN, "genre":genero, "description":descripcion, "publishedYear":publicacion, "title":titulo} # Crea un diccionario con los datos del libro
     print(libro)
     print("Libro recibido:", libro) # Imprime el libro recibido en la consola
     Libros.insert_one(libro)
