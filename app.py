@@ -5,7 +5,7 @@ from pymongo import MongoClient # Importa MongoClient para interactuar con Mongo
 
 app = Flask(__name__) # Crea una instancia de la aplicación Flask
 wsgi_app = app.wsgi_app # Exponer la aplicación WSGI para servidores compatibles con WSGI
-Cliente = MongoClient('mongodb://root:root@localhost:27050') # Conecta al servidor MongoDB en localhost y puerto 27017
+Cliente = MongoClient('mongodb://root:root@mongodb:27017') # Conecta al servidor MongoDB en localhost y puerto 27017
 db = Cliente.Escuela # Selecciona la base de datos 'Escuela'
 Libros = db.Libros # Selecciona la colección 'Libros'
 
@@ -84,7 +84,7 @@ if __name__ == '__main__': # Si el script se ejecuta directamente, inicia el ser
     import os # Importa el módulo os para acceder a variables de entorno
     HOST = os.environ.get('SERVER_HOST', 'localhost') # Obtiene el host del entorno o usa 'localhost' por defecto
     try:
-        PORT = int(os.environ.get('SERVER_PORT', '1300')) # Obtiene el puerto del entorno o usa 5000 por defecto
+        PORT = int(os.environ.get('SERVER_PORT', '5000')) # Obtiene el puerto del entorno o usa 5000 por defecto
     except ValueError:
-        PORT = 5000 # Si la conversión falla, usa 5000 por defecto
+        PORT = 5001 # Si la conversión falla, usa 5001 por defecto
     app.run(HOST, PORT) # Inicia el servidor de desarrollo en el host y puerto especificados
