@@ -84,7 +84,7 @@ if __name__ == '__main__': # Si el script se ejecuta directamente, inicia el ser
     import os # Importa el módulo os para acceder a variables de entorno
     HOST = os.environ.get('SERVER_HOST', 'localhost') # Obtiene el host del entorno o usa 'localhost' por defecto
     try:
-        PORT = int(os.environ.get('SERVER_PORT', '5000')) # Obtiene el puerto del entorno o usa 5000 por defecto
+        PORT = int(os.environ.get('SERVER_PORT', '80')) # Obtiene el puerto del entorno o usa 5000 por defecto
     except ValueError:
-        PORT = 5001 # Si la conversión falla, usa 5001 por defecto
+        PORT = 8080 # Si la conversión falla, usa 5001 por defecto
     app.run(HOST, PORT) # Inicia el servidor de desarrollo en el host y puerto especificados

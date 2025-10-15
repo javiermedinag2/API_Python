@@ -2,7 +2,7 @@ services:
   flask-app:
     build: .
     ports:
-      - "5000:5000"
+      - "80:80"
     environment:
       - MONGO_URI=mongodb://mongodb:27017/Escuela
     links:
@@ -13,8 +13,8 @@ services:
 
   mongodb:
     image: mongo:latest
-    ports:
-      - "27017:27017"
+    expose:
+      - "27017"
     volumes:
       - mongo_data_api:/data/db
       - ./init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
